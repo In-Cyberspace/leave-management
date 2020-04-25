@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Data.SqlClient;
+using leave_management.Contracts;
+using leave_management.Repository;
 
 namespace leave_management
 {
@@ -22,13 +24,20 @@ namespace leave_management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Connect the application to the SQL database and protect database secrets.
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"));
             builder.Password = Configuration["Password"];
             string _connection = builder.ConnectionString;
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(_connection));
+
+            // Add references for Repository and Contracts to Startup file.
+            services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+            services.AddScoped<ILeaveHistoryRepository, LeaveHistoryRepository>();
+            services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+
+            // Unmodified default startup services.
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
