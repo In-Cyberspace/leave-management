@@ -2,6 +2,7 @@ using leave_management.Contracts;
 using leave_management.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace leave_management.Repository
 {
@@ -17,24 +18,41 @@ namespace leave_management.Repository
             _db = db;
         }
 
+        /// <summary>
+        /// Returns true if the given leave type entity was successfully created
+        /// in the database. The method returns false otherwise.
+        /// </summary>
         public bool Create(LeaveType entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveTypes.Add(entity);
+            return Save();
         }
 
+        /// <summary>
+        /// Returns true if the given leave type entity was successfully deleted
+        /// from the database. The method returns false otherwise.
+        /// </summary>
         public bool Delete(LeaveType entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveTypes.Remove(entity);
+            return Save();
         }
 
+        /// <summary>
+        /// Returns all records from the LeaveTypes table in the database.
+        /// </summary>
         public ICollection<LeaveType> FindAll()
         {
-            throw new NotImplementedException();
+            return _db.LeaveTypes.ToList();
         }
 
+        /// <summary>
+        /// Returns the leave type record/row from the LeaveTypes table that
+        /// corresponds with the given unique identifier.
+        /// </summary>
         public LeaveType FindById(int Id)
         {
-            throw new NotImplementedException();
+            return _db.LeaveTypes.Find(Id);
         }
 
         public ICollection<LeaveType> GetEmployeesByLeaveType(int Id)
@@ -42,14 +60,24 @@ namespace leave_management.Repository
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// This method applies entity framework changes to the database records.
+        /// If any changes have been made then it returns true. If no changes
+        /// were made then it returns false.
+        /// </summary>
         public bool Save()
         {
-            throw new NotImplementedException();
+            return _db.SaveChanges() > 0;
         }
 
+        /// <summary>
+        /// Returns true if the leave type database record record was
+        /// successfully updated. The method returns false otherwise.
+        /// </summary>
         public bool Update(LeaveType entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveTypes.Update(entity);
+            return Save();
         }
     }
 }
