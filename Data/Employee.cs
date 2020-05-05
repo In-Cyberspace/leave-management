@@ -33,11 +33,5 @@ namespace leave_management.Data
         /// Represents the date the employee joined.
         /// </summary>
         public DateTime DateJoined { get; set; }
-
-        /// <summary>
-        /// Represents the date the employee's record was
-        /// added to the database.
-        /// </summary>
-        public DateTime DateCreated { get; set; }
     }
 }
