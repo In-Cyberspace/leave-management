@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leave-management", "leave-management.csproj", "{96E61169-2C24-4993-8E8E-29B2CEF15874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leave-management", "leave-management.csproj", "{9E761A9D-DDB3-4D9D-BB31-25448ECB42D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{96E61169-2C24-4993-8E8E-29B2CEF15874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96E61169-2C24-4993-8E8E-29B2CEF15874}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96E61169-2C24-4993-8E8E-29B2CEF15874}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96E61169-2C24-4993-8E8E-29B2CEF15874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E761A9D-DDB3-4D9D-BB31-25448ECB42D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E761A9D-DDB3-4D9D-BB31-25448ECB42D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E761A9D-DDB3-4D9D-BB31-25448ECB42D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E761A9D-DDB3-4D9D-BB31-25448ECB42D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {64D17BD7-D8F0-4EB4-9F43-0EC0FDDC8CC4}
+		SolutionGuid = {AF25124E-9F69-45AC-8217-E8CF5A3D3AFA}
 	EndGlobalSection
 EndGlobal
