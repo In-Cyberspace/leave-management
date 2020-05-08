@@ -23,6 +23,7 @@ namespace leave_management.Models
         /// <summary>
         /// Represents the time the leave was created.
         ///</summary>
+        [Display(Name="Date Created")]
         public DateTime DateCreated { get; set; }
     }
 
