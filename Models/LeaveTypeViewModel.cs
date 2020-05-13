@@ -16,15 +16,15 @@ namespace leave_management.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Represents the name of the leave type.
+        /// Represents the name of the leave type. This field is required.
         /// </summary>
         [Required]
         public string Name { get; set; }
 
         /// <summary>
-        /// Represents the time the leave was created.
+        /// Represents the time the leave was created. This field is nullable. 
         ///</summary>
         [Display(Name="Date Created")]
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
     }
 }
