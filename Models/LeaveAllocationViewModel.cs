@@ -41,7 +41,7 @@ namespace leave_management.Models
         /// <summary>
         /// Represents the type of leave to the allocation is associated with.
         /// </summary>
-        public DetailsLeaveTypeViewModel LeaveType { get; set; }
+        public LeaveTypeViewModel LeaveType { get; set; }
 
         /// <summary>
         /// The unique identifier for the leave type associated with the

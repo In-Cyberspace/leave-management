@@ -8,7 +8,7 @@ namespace leave_management.Models
     /// model. This model is used to display the details of the leave type to
     /// the end user.
     /// </summary>
-    public class DetailsLeaveTypeViewModel
+    public class LeaveTypeViewModel
     {
         /// <summary>
         /// The unique identifier for the leave type.
@@ -18,6 +18,7 @@ namespace leave_management.Models
         /// <summary>
         /// Represents the name of the leave type.
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -25,18 +26,5 @@ namespace leave_management.Models
         ///</summary>
         [Display(Name="Date Created")]
         public DateTime DateCreated { get; set; }
-    }
-
-    /// <summary>
-    /// A model representing the form an end user will use to create new leave
-    /// type.
-    /// </summary>
-    public class CreateLeaveTypeViewModel
-    {
-        /// <summary>
-        /// Represents the name of the leave type.
-        /// </summary>
-        [Required]
-        public string Name { get; set; }
     }
 }
