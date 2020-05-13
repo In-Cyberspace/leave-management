@@ -29,7 +29,7 @@ namespace leave_management.Controllers
         {
             return View(
                 _mapper
-                .Map<List<LeaveType>, List<DetailsLeaveTypeViewModel>>(_repo
+                .Map<List<LeaveType>, List<LeaveTypeViewModel>>(_repo
                     .FindAll().ToList()));
         }
 

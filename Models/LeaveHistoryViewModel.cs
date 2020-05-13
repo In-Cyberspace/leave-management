@@ -38,7 +38,7 @@ namespace leave_management.Models
         /// <summary>
         /// The type of leave requested by the employee.
         /// </summary>
-        public DetailsLeaveTypeViewModel LeaveType { get; set; }
+        public LeaveTypeViewModel LeaveType { get; set; }
 
         /// <summary>
         /// The unique identifier associated with the requested leave type.
