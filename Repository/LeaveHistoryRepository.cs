@@ -43,7 +43,8 @@ namespace leave_management.Repository
         /// </summary>
         public ICollection<LeaveHistory> FindAll()
         {
-            return _db.LeaveHistories.ToList();
+            List<LeaveHistory> leaveHistories = _db.LeaveHistories.ToList();
+            return leaveHistories;
         }
 
         /// <summary>
@@ -52,7 +53,16 @@ namespace leave_management.Repository
         /// </summary>
         public LeaveHistory FindById(int Id)
         {
-            return _db.LeaveHistories.Find(Id);
+            LeaveHistory leaveHistory = _db.LeaveHistories.Find(Id);
+            return leaveHistory;
+        }
+
+        public bool isExists(int Id)
+        {
+            bool exists = _db.LeaveHistories.Any(
+                q => q.Id == Id
+            );
+            return exists;
         }
 
         /// <summary>
@@ -62,7 +72,8 @@ namespace leave_management.Repository
         /// </summary>
         public bool Save()
         {
-            return _db.SaveChanges() > 0;
+            int changes = _db.SaveChanges();
+            return changes > 0;
         }
 
         /// <summary>

@@ -21,6 +21,12 @@ namespace leave_management.Contracts
         T FindById(int Id);
 
         /// <summary>
+        /// Checks whether or not the database contains a record corresponding
+        /// with the id input.
+        /// </summary>
+        bool isExists(int Id);
+
+        /// <summary>
         /// Returns true if the given entity was successfully created in the
         /// database. The method returns false otherwise.
         /// </summary>

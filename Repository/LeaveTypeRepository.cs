@@ -43,7 +43,8 @@ namespace leave_management.Repository
         /// </summary>
         public ICollection<LeaveType> FindAll()
         {
-            return _db.LeaveTypes.ToList();
+            List<LeaveType> leaveTypes = _db.LeaveTypes.ToList();
+            return leaveTypes;
         }
 
         /// <summary>
@@ -52,12 +53,21 @@ namespace leave_management.Repository
         /// </summary>
         public LeaveType FindById(int Id)
         {
-            return _db.LeaveTypes.Find(Id);
+            LeaveType leaveType = _db.LeaveTypes.Find(Id);
+            return leaveType;
         }
 
         public ICollection<LeaveType> GetEmployeesByLeaveType(int Id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool isExists(int Id)
+        {
+            bool exists = _db.LeaveTypes.Any(
+                q => q.Id == Id
+            );
+            return exists;
         }
 
         /// <summary>
@@ -67,7 +77,8 @@ namespace leave_management.Repository
         /// </summary>
         public bool Save()
         {
-            return _db.SaveChanges() > 0;
+            int changes = _db.SaveChanges();
+            return changes > 0;
         }
 
         /// <summary>

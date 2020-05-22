@@ -43,7 +43,8 @@ namespace leave_management.Repository
         /// </summary>
         public ICollection<LeaveAllocation> FindAll()
         {
-            return _db.LeaveAllocations.ToList();
+            List<LeaveAllocation> leaveAllocations = _db.LeaveAllocations.ToList();
+            return leaveAllocations;
         }
 
         /// <summary>
@@ -52,7 +53,16 @@ namespace leave_management.Repository
         /// </summary>
         public LeaveAllocation FindById(int Id)
         {
-            return _db.LeaveAllocations.Find(Id);
+            LeaveAllocation leaveAllocation =_db.LeaveAllocations.Find(Id);
+            return leaveAllocation;
+        }
+
+        public bool isExists(int Id)
+        {
+            bool exists = _db.LeaveAllocations.Any(
+                q => q.Id == Id
+            );
+            return exists;
         }
 
         /// <summary>
@@ -62,7 +72,8 @@ namespace leave_management.Repository
         /// </summary>
         public bool Save()
         {
-            return _db.SaveChanges() > 0;
+            int changes = _db.SaveChanges();
+            return changes > 0;
         }
 
         /// <summary>
