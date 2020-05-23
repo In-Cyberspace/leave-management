@@ -57,6 +57,10 @@ namespace leave_management.Repository
             return leaveHistory;
         }
 
+        /// <summary>
+        /// Returns true if the database contains a record corresponding with
+        /// the id input. Returns false otherwise.
+        /// </summary>
         public bool isExists(int Id)
         {
             bool exists = _db.LeaveHistories.Any(

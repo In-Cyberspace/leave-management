@@ -28,15 +28,25 @@ namespace leave_management.Controllers
         public ActionResult Index()
         {
             return View(
-                _mapper
-                .Map<List<LeaveType>, List<LeaveTypeViewModel>>(_repo
-                    .FindAll().ToList()));
+                _mapper.Map<List<LeaveType>,
+                List<LeaveTypeViewModel>>(_repo.FindAll().ToList())
+            );
         }
 
         // GET: LeaveTypes/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int Id)
         {
-            return View();
+            if (!_repo.isExists(Id))
+            {
+                return NotFound();
+            }
+            
+            LeaveType leaveType = _repo.FindById(Id);
+
+            LeaveTypeViewModel model;
+            model = _mapper.Map<LeaveTypeViewModel>(leaveType);
+
+            return View(model);
         }
 
         // GET: LeaveTypes/Create
