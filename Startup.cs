@@ -27,12 +27,9 @@ namespace leave_management
         public void ConfigureServices(IServiceCollection services)
         {
             // Connect the application to the SQL database and protect database secrets.
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"));
-            builder.Password = Configuration["Password"];
-            string _connection = builder.ConnectionString;
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_connection));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services for Repository to Startup file.
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
@@ -43,7 +40,7 @@ namespace leave_management
             services.AddAutoMapper(typeof(Maps));
 
             // Unmodified default startup services.
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
