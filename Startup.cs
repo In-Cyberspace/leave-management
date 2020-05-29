@@ -40,7 +40,7 @@ namespace leave_management
             services.AddAutoMapper(typeof(Maps));
 
             // Unmodified default startup services.
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
