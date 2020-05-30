@@ -48,5 +48,10 @@ namespace leave_management.Data
         /// The unique identifier for the leave type associated with the allocation.
         /// </summary>
         public int LeaveTypeId { get; set; }
+
+        /// <summary>
+        /// The period/year during which the leave type applies.
+        /// </summary>
+        public int Period { get; set; }
     }
 }

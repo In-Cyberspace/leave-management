@@ -22,6 +22,14 @@ namespace leave_management.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// The default/standard number of days for the leave type.
+        /// </summary>
+        [Required]
+        [Display(Name = "Default Number of Days")]
+        [Range(1,25, ErrorMessage = "Please enter a valid number.")]
+        public int DefaultDays { get; set; }
+
+        /// <summary>
         /// Represents the time the leave was created. This field is nullable. 
         ///</summary>
         [Display(Name="Date Created")]

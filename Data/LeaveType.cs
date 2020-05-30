@@ -22,6 +22,11 @@ namespace leave_management.Data
         public string Name { get; set; }
 
         /// <summary>
+        /// The default/standard number of days for the leave type.
+        /// </summary>
+        public int DefaultDays { get; set; }
+
+        /// <summary>
         /// Represents the time the leave was created.
         ///</summary>
         public DateTime DateCreated { get; set; }
