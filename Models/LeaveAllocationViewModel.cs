@@ -18,7 +18,6 @@ namespace leave_management.Models
         /// <summary>
         /// Represents the number of days allocated to the leave type.
         /// </summary>
-        [Required]
         public int NumberOfDays { get; set; }
 
         /// <summary>
@@ -26,6 +25,11 @@ namespace leave_management.Models
         /// to the date the leave type was created.
         /// </summary>
         public DateTime DateCreated { get; set; }
+
+        /// <summary>
+        /// The period/year during which the leave type applies.
+        /// </summary>
+        public int Period { get; set; }
 
         /// <summary>
         /// Represents the employee to whom the allocation are being made.
