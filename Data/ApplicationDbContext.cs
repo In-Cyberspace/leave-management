@@ -13,11 +13,9 @@ namespace leave_management.Data
             : base(options)
         {
         }
-
         public DbSet<Employee> Employees { get; set; }
         public DbSet<LeaveHistory> LeaveHistories { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-        public DbSet<leave_management.Models.LeaveTypeViewModel> DetailsLeaveTypeViewModel { get; set; }
     }
 }
