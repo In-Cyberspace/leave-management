@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using leave_management.Data;
 
 namespace leave_management.Contracts
@@ -9,5 +8,6 @@ namespace leave_management.Contracts
     /// </summary>
     public interface ILeaveAllocationRepository : IRepositoryBase<LeaveAllocation>
     {
+        bool CheckAllocation(int leavetypeId, string employeeId);
     }
 }

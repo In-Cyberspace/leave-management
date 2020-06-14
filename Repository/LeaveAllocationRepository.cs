@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using leave_management.Contracts;
@@ -18,6 +19,17 @@ namespace leave_management.Repository
             _db = db;
         }
 
+        public bool CheckAllocation(int leavetypeId, string employeeId)
+        {
+            int period = DateTime.Now.Year;
+
+            return FindAll().Where(
+                q => q.EmployeeId == employeeId
+                && q.LeaveTypeId == leavetypeId
+                && q.Period == period
+            ).Any();
+        }
+
         /// <summary>
         /// Returns true if the given leave allocation entity was successfully
         /// created in the database. The method returns false otherwise.
@@ -25,6 +37,7 @@ namespace leave_management.Repository
         public bool Create(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Add(entity);
+
             return Save();
         }
 
@@ -35,6 +48,7 @@ namespace leave_management.Repository
         public bool Delete(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Remove(entity);
+
             return Save();
         }
 
@@ -44,6 +58,7 @@ namespace leave_management.Repository
         public ICollection<LeaveAllocation> FindAll()
         {
             List<LeaveAllocation> leaveAllocations = _db.LeaveAllocations.ToList();
+
             return leaveAllocations;
         }
 
@@ -66,6 +81,7 @@ namespace leave_management.Repository
             bool exists = _db.LeaveAllocations.Any(
                 q => q.Id == Id
             );
+
             return exists;
         }
 
@@ -77,6 +93,7 @@ namespace leave_management.Repository
         public bool Save()
         {
             int changes = _db.SaveChanges();
+
             return changes > 0;
         }
 
@@ -87,6 +104,7 @@ namespace leave_management.Repository
         public bool Update(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Update(entity);
+
             return Save();
         }
     }
