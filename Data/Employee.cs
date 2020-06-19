@@ -5,7 +5,7 @@ namespace leave_management.Data
 {
     /// <summary>
     /// Represents the employee data entity model which inherits
-    /// the IdentityUser class.
+    /// the Employee class.
     /// </summary>
     public class Employee : IdentityUser
     {

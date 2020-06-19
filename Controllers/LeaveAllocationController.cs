@@ -18,12 +18,12 @@ namespace leave_management.Controllers
         private readonly ILeaveTypeRepository _leavetyperepo;
         private readonly ILeaveAllocationRepository _leaveallocationrepo;
         private readonly IMapper _mapper;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Employee> _userManager;
 
         public LeaveAllocationController(ILeaveTypeRepository leavetyperepo,
             ILeaveAllocationRepository leaveallocationrepo,
             IMapper mapper,
-            UserManager<IdentityUser> userManager)
+            UserManager<Employee> userManager)
         {
             _leavetyperepo = leavetyperepo;
             _leaveallocationrepo = leaveallocationrepo;
@@ -37,7 +37,7 @@ namespace leave_management.Controllers
             List<LeaveType> leavetypes = _leavetyperepo.FindAll().ToList();
             
             List<LeaveTypeViewModel> mappedLeaveTypes = _mapper
-            .Map<List<LeaveType>, List<LeaveTypeViewModel>>(leavetypes);
+                .Map<List<LeaveType>, List<LeaveTypeViewModel>>(leavetypes);
             
             CreateLeaveAllocationViewModel model =
             new CreateLeaveAllocationViewModel
@@ -53,7 +53,7 @@ namespace leave_management.Controllers
         {
             LeaveType leaveType = _leavetyperepo.FindById(Id);
             
-            IList<IdentityUser> employees =
+            IList<Employee> employees =
             _userManager.GetUsersInRoleAsync("Employee").Result;
 
             foreach (Employee emp in employees)
@@ -71,13 +71,24 @@ namespace leave_management.Controllers
                     Period = DateTime.Now.Year
                 };
 
-                LeaveAllocation leaveAllocation =
-                _mapper.Map<LeaveAllocation>(allocation);
+                LeaveAllocation leaveAllocation = _mapper
+                    .Map<LeaveAllocation>(allocation);
 
                 _leaveallocationrepo.Create(leaveAllocation);
             }
 
                 return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult ListEmployees()
+        {
+            IList<Employee> employees = _userManager
+                .GetUsersInRoleAsync("Employee").Result;
+
+            List<EmployeeViewModel> model = _mapper
+                .Map<List<EmployeeViewModel>>(employees);
+
+            return View(model);
         }
 
         // GET: LeaveAllocationController/Details/5

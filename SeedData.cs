@@ -5,14 +5,14 @@ namespace leave_management
 {
     public static class SeedData
     {
-        public static void Seed(UserManager<IdentityUser> userManager,
+        public static void Seed(UserManager<Employee> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
 
-        private static void SeedUsers(UserManager<IdentityUser> userManager)
+        private static void SeedUsers(UserManager<Employee> userManager)
         {
             if (userManager.FindByNameAsync("admin").Result == null)
             {
