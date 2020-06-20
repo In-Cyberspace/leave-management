@@ -50,16 +50,6 @@ namespace leave_management.Models
         /// Gets or sets the unique identifier for the allocated leave type.
         /// </summary>
         public int LeaveTypeId { get; set; }
-
-        /// <summary>
-        /// Gets or sets a collection of registered employees.
-        /// </summary>
-        public IEnumerable<SelectListItem> Employees { get; set; }
-
-        /// <summary>
-        /// Gets or sets a collection of available leave types.
-        /// </summary>
-        public IEnumerable<SelectListItem> LeaveTypes { get; set; }
     }
 
     public class CreateLeaveAllocationViewModel
@@ -74,5 +64,25 @@ namespace leave_management.Models
         /// Gets or sets a list of leave types.
         /// </summary>
         public List<LeaveTypeViewModel> LeaveTypes { get; set; }
+    }
+
+    public class ViewAllocationsViewModel
+    {
+        /// <summary>
+        /// Gets or sets the employee associated with the leave allocation.
+        /// </summary>
+        public EmployeeViewModel Employee { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the employee associated with
+        /// the allocation.
+        /// </summary>
+        public string EmployeeId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of leave allocations associated with the
+        /// employee.
+        /// </summary>
+        public List<LeaveAllocationViewModel> LeaveAllocations { get; set; }
     }
 }
