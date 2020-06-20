@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Identity;
 namespace leave_management.Data
 {
     /// <summary>
-    /// Represents the employee data entity model which inherits
-    /// the Employee class.
+    /// The employee data entity model.
     /// </summary>
     public class Employee : IdentityUser
     {

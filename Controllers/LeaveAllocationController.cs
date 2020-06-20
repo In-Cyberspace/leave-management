@@ -37,7 +37,7 @@ namespace leave_management.Controllers
             List<LeaveType> leavetypes = _leavetyperepo.FindAll().ToList();
             
             List<LeaveTypeViewModel> mappedLeaveTypes = _mapper
-                .Map<List<LeaveType>, List<LeaveTypeViewModel>>(leavetypes);
+            .Map<List<LeaveType>, List<LeaveTypeViewModel>>(leavetypes);
             
             CreateLeaveAllocationViewModel model =
             new CreateLeaveAllocationViewModel
@@ -72,7 +72,7 @@ namespace leave_management.Controllers
                 };
 
                 LeaveAllocation leaveAllocation = _mapper
-                    .Map<LeaveAllocation>(allocation);
+                .Map<LeaveAllocation>(allocation);
 
                 _leaveallocationrepo.Create(leaveAllocation);
             }
@@ -83,18 +83,36 @@ namespace leave_management.Controllers
         public ActionResult ListEmployees()
         {
             IList<Employee> employees = _userManager
-                .GetUsersInRoleAsync("Employee").Result;
+            .GetUsersInRoleAsync("Employee").Result;
 
             List<EmployeeViewModel> model = _mapper
-                .Map<List<EmployeeViewModel>>(employees);
+            .Map<List<EmployeeViewModel>>(employees);
 
             return View(model);
         }
 
         // GET: LeaveAllocationController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string Id)
         {
-            return View();
+            EmployeeViewModel employee = _mapper
+            .Map<EmployeeViewModel>(
+                _userManager.FindByIdAsync(Id).Result
+            );
+
+            List<LeaveAllocationViewModel> allcations = _mapper
+            .Map<List<LeaveAllocationViewModel>>(
+                _leaveallocationrepo
+                .GetLeaveAllocationsByEmployee(Id)
+            );
+
+            ViewAllocationsViewModel model =
+            new ViewAllocationsViewModel
+            {
+                Employee = employee,
+                LeaveAllocations = allcations
+            };
+
+            return View(model);
         }
 
         // GET: LeaveAllocationController/Create
