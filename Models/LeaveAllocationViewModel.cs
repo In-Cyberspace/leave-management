@@ -66,6 +66,29 @@ namespace leave_management.Models
         public List<LeaveTypeViewModel> LeaveTypes { get; set; }
     }
 
+    public class EditLeaveAllocationViewModel
+    {
+        /// <summary>
+        /// Gets or sets the unique identifier for the leave allocation.
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the employee associated with the leave allocation.
+        /// </summary>
+        public EmployeeViewModel Employee { get; set; }
+
+       /// <summary>
+        /// Gets or sets the number of days allocated to the leave type.
+        /// </summary>
+        public int NumberOfDays { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leave type being allocated.
+        /// </summary>
+        public LeaveTypeViewModel LeaveType { get; set; }
+    }
+
     public class ViewAllocationsViewModel
     {
         /// <summary>
