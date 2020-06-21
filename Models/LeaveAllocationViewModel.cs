@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace leave_management.Models
@@ -78,9 +79,16 @@ namespace leave_management.Models
         /// </summary>
         public EmployeeViewModel Employee { get; set; }
 
-       /// <summary>
+        /// <summary>
+        /// Gets or sets the unique identifier for the employee associated with
+        /// the allocation.
+        /// </summary>
+        public string EmployeeId { get; set; }
+
+        /// <summary>
         /// Gets or sets the number of days allocated to the leave type.
         /// </summary>
+        [Display(Name = "Number of Days")]
         public int NumberOfDays { get; set; }
 
         /// <summary>
