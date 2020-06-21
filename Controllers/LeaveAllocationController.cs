@@ -137,9 +137,14 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveAllocationController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int Id)
         {
-            return View();
+            LeaveAllocation leaveAllocation = _leaveallocationrepo.FindById(Id);
+
+            EditLeaveAllocationViewModel model = _mapper
+            .Map<EditLeaveAllocationViewModel>(leaveAllocation);
+
+            return View(model);
         }
 
         // POST: LeaveAllocationController/Edit/5
