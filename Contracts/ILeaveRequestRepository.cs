@@ -7,7 +7,7 @@ namespace leave_management.Contracts
     /// Defines methods to perform CRUD operations on the LeaveHistory data
     /// records.
     /// </summary>
-    public interface ILeaveHistoryRepository : IRepositoryBase<LeaveHistory>
+    public interface ILeaveRequestRepository : IRepositoryBase<LeaveRequest>
     {
     }
 }

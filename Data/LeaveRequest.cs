@@ -7,7 +7,7 @@ namespace leave_management.Data
     /// <summary>
     /// Data entity model to store the history of leaves created.
     /// </summary>
-    public class LeaveHistory
+    public class LeaveRequest
     {
         /// <summary>
         /// Unique identifier associated with the leave record in the history.
