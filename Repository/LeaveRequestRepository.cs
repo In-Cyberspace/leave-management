@@ -9,11 +9,11 @@ namespace leave_management.Repository
     /// Implements CRUD operations related to the LeaveHistory data entity
     /// model.
     /// </summary>
-    public class LeaveHistoryRepository : ILeaveHistoryRepository
+    public class LeaveRequestRepository : ILeaveRequestRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public LeaveHistoryRepository(ApplicationDbContext db)
+        public LeaveRequestRepository(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -22,9 +22,9 @@ namespace leave_management.Repository
         /// Returns true if the given leave history entity was successfully
         /// created in the database. The method returns false otherwise.
         /// </summary>
-        public bool Create(LeaveHistory entity)
+        public bool Create(LeaveRequest entity)
         {
-            _db.LeaveHistories.Add(entity);
+            _db.LeaveRequests.Add(entity);
             return Save();
         }
 
@@ -32,29 +32,29 @@ namespace leave_management.Repository
         /// Returns true if the given leave history entity was successfully
         /// deleted from the database. The method returns false otherwise.
         /// </summary>
-        public bool Delete(LeaveHistory entity)
+        public bool Delete(LeaveRequest entity)
         {
-            _db.LeaveHistories.Remove(entity);
+            _db.LeaveRequests.Remove(entity);
             return Save();
         }
 
         /// <summary>
-        /// Returns all records from the LeaveHistories table in the database.
+        /// Returns all records from the LeaveRequests table in the database.
         /// </summary>
-        public ICollection<LeaveHistory> FindAll()
+        public ICollection<LeaveRequest> FindAll()
         {
-            List<LeaveHistory> leaveHistories = _db.LeaveHistories.ToList();
-            return leaveHistories;
+            List<LeaveRequest> leaveRequests = _db.LeaveRequests.ToList();
+            return leaveRequests;
         }
 
         /// <summary>
-        /// Returns the leave history record/row from the LeaveHistories table
+        /// Returns the leave history record/row from the LeaveRequests table
         /// that corresponds with the given unique identifier.
         /// </summary>
-        public LeaveHistory FindById(int Id)
+        public LeaveRequest FindById(int Id)
         {
-            LeaveHistory leaveHistory = _db.LeaveHistories.Find(Id);
-            return leaveHistory;
+            LeaveRequest leaveRequest = _db.LeaveRequests.Find(Id);
+            return leaveRequest;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace leave_management.Repository
         /// </summary>
         public bool isExists(int Id)
         {
-            bool exists = _db.LeaveHistories.Any(
+            bool exists = _db.LeaveRequests.Any(
                 q => q.Id == Id
             );
             return exists;
@@ -84,9 +84,9 @@ namespace leave_management.Repository
         /// Returns true if the leave history database record record was
         /// successfully updated. The method returns false otherwise.
         /// </summary>
-        public bool Update(LeaveHistory entity)
+        public bool Update(LeaveRequest entity)
         {
-            _db.LeaveHistories.Update(entity);
+            _db.LeaveRequests.Update(entity);
             return Save();
         }
     }
