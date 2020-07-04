@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace leave_management.Models
@@ -70,5 +71,34 @@ namespace leave_management.Models
         /// approved/declined the leave request.
         /// </summary>
         public string ApprovedById { get; set; }
+    }
+
+    public class AdminLeaveRequestViewViewModel
+    {
+        /// <summary>
+        /// Gets or sets the number of approved leave requests.
+        /// </summary>
+        public int ApprovedRequests { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of pending leave requests.
+        /// </summary>
+        public int PendingRequests { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of rejected leave requests.
+        /// </summary>
+        public int RejectedRequests { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total number of leave requests.
+        /// </summary>
+        public int TotalRequests { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of all leave requests.
+        /// </summary>
+        public List<LeaveRequestViewModel> LeaveRequests { get; set; }
+        
     }
 }
