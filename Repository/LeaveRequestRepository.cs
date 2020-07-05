@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using leave_management.Contracts;
 using leave_management.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace leave_management.Repository
 {
@@ -43,7 +44,12 @@ namespace leave_management.Repository
         /// </summary>
         public ICollection<LeaveRequest> FindAll()
         {
-            List<LeaveRequest> leaveRequests = _db.LeaveRequests.ToList();
+            List<LeaveRequest> leaveRequests = _db.LeaveRequests
+            .Include(q => q.RequestingEmployee)
+            .Include(q => q.ApprovedBy)
+            .Include(q => q.LeaveType)
+            .ToList();
+
             return leaveRequests;
         }
 
@@ -51,9 +57,14 @@ namespace leave_management.Repository
         /// Returns the leave history record/row from the LeaveRequests table
         /// that corresponds with the given unique identifier.
         /// </summary>
-        public LeaveRequest FindById(int Id)
+        public LeaveRequest FindById(int id)
         {
-            LeaveRequest leaveRequest = _db.LeaveRequests.Find(Id);
+            LeaveRequest leaveRequest = _db.LeaveRequests
+            .Include(q => q.RequestingEmployee)
+            .Include(q => q.ApprovedBy)
+            .Include(q => q.LeaveType)
+            .FirstOrDefault(q => q.Id == id);
+            
             return leaveRequest;
         }
 
