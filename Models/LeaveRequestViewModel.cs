@@ -78,21 +78,25 @@ namespace leave_management.Models
         /// <summary>
         /// Gets or sets the number of approved leave requests.
         /// </summary>
+        [Display(Name = "Approved Requests")]
         public int ApprovedRequests { get; set; }
 
         /// <summary>
         /// Gets or sets the number of pending leave requests.
         /// </summary>
+        [Display(Name = "Pending Requests")]
         public int PendingRequests { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rejected leave requests.
         /// </summary>
+        [Display(Name = "Rejected Requests")]
         public int RejectedRequests { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of leave requests.
         /// </summary>
+        [Display(Name = "Total Number of Requests")]
         public int TotalRequests { get; set; }
 
         /// <summary>
