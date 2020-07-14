@@ -123,7 +123,6 @@ namespace leave_management.Models
         /// </summary>
         [Display(Name = "Start Date")]
         [Required]
-        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         /// <summary>
@@ -131,7 +130,6 @@ namespace leave_management.Models
         /// </summary>
         [Display(Name = "End Date")]
         [Required]
-        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
         /// <summary>
