@@ -24,6 +24,15 @@ namespace leave_management.Contracts
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>A collection of leave allocations.</returns>
-        ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string Id);
+        ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string id);
+
+        /// <summary>
+        /// Returns a leave allocated to the given employee and given leave
+        /// type for the time period.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="leavetypeid"></param>
+        /// <returns>A leave allocation.</returns>
+        LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string id, int leavetypeid);
     }
 }

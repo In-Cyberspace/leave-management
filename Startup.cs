@@ -26,10 +26,14 @@ namespace leave_management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(
+                Configuration.GetConnectionString("DefaultConnection"));
+            builder.Password = Configuration["Password"];
+            string _connection = builder.ConnectionString;
+
             // Connect the application to the SQL database and protect database secrets.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(_connection));
 
             // Add services for Repository to Startup file.
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
@@ -44,7 +48,7 @@ namespace leave_management
             services.AddDefaultIdentity<Employee>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+
             // Unmodified default startup services.
             services.AddControllersWithViews();
             services.AddRazorPages();

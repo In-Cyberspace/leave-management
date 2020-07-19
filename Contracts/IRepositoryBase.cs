@@ -18,13 +18,13 @@ namespace leave_management.Contracts
         /// Returns the class record/row from the relative database table that
         /// corresponds with the given unique identifier.
         /// </summary>
-        T FindById(int Id);
+        T FindById(int id);
 
         /// <summary>
         /// Checks whether or not the database contains a record corresponding
         /// with the id input.
         /// </summary>
-        bool isExists(int Id);
+        bool isExists(int id);
 
         /// <summary>
         /// Returns true if the given entity was successfully created in the
