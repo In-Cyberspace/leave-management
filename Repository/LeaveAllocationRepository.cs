@@ -69,33 +69,43 @@ namespace leave_management.Repository
         /// Returns the leave allocation record/row from the LeaveHistories
         /// table that corresponds with the given unique identifier.
         /// </summary>
-        public LeaveAllocation FindById(int Id)
+        public LeaveAllocation FindById(int id)
         {
-            LeaveAllocation leaveAllocation =_db.LeaveAllocations
+            LeaveAllocation leaveAllocation = _db.LeaveAllocations
             .Include(q => q.LeaveType)
             .Include(q => q.Employee)
-            .FirstOrDefault(q => q.Id == Id);
+            .FirstOrDefault(q => q.Id == id);
 
             return leaveAllocation;
         }
 
-        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string Id)
+        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string id)
         {
             int period = DateTime.Now.Year;
 
             return FindAll()
-            .Where(q => q.EmployeeId == Id && q.Period == period)
-            .ToList();
+                .Where(q => q.EmployeeId == id && q.Period == period)
+                .ToList();
+        }
+
+        public LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string id, int leavetypeid)
+        {
+            int period = DateTime.Now.Year;
+
+            return FindAll()
+                .FirstOrDefault(
+                    q => q.EmployeeId == id && q.Period == period && q.LeaveTypeId == leavetypeid
+                );
         }
 
         /// <summary>
         /// Returns true if the database contains a record corresponding with
         /// the id input. Returns false otherwise.
         /// </summary>
-        public bool isExists(int Id)
+        public bool isExists(int id)
         {
             bool exists = _db.LeaveAllocations.Any(
-                q => q.Id == Id
+                q => q.Id == id
             );
 
             return exists;

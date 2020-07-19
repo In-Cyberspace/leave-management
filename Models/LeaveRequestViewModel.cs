@@ -113,7 +113,7 @@ namespace leave_management.Models
         /// Gets or sets a list of all leave requests.
         /// </summary>
         public List<LeaveRequestViewModel> LeaveRequests { get; set; }
-        
+
     }
 
     public class CreateLeaveRequestViewModel
@@ -123,14 +123,14 @@ namespace leave_management.Models
         /// </summary>
         [Display(Name = "Start Date")]
         [Required]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the end date for the request.
         /// </summary>
         [Display(Name = "End Date")]
         [Required]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets a collection of leave types.

@@ -64,7 +64,7 @@ namespace leave_management.Repository
             .Include(q => q.ApprovedBy)
             .Include(q => q.LeaveType)
             .FirstOrDefault(q => q.Id == id);
-            
+
             return leaveRequest;
         }
 
@@ -72,10 +72,10 @@ namespace leave_management.Repository
         /// Returns true if the database contains a record corresponding with
         /// the id input. Returns false otherwise.
         /// </summary>
-        public bool isExists(int Id)
+        public bool isExists(int id)
         {
             bool exists = _db.LeaveRequests.Any(
-                q => q.Id == Id
+                q => q.Id == id
             );
             return exists;
         }

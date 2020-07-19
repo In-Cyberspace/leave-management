@@ -19,18 +19,21 @@ namespace leave_management.Controllers
     {
         private readonly ILeaveRequestRepository _leaveRequestRepo;
         private readonly ILeaveTypeRepository _leaveTypeRepo;
+        private readonly ILeaveAllocationRepository _leaveAllocationRepo;
         private readonly IMapper _mapper;
         private readonly UserManager<Employee> _userManager;
 
         public LeaveRequestController(
             ILeaveRequestRepository leaveRequestRepo,
             ILeaveTypeRepository leaveTypeRepo,
+            ILeaveAllocationRepository leaveAllocationRepo,
             IMapper mapper,
             UserManager<Employee> userManager
         )
         {
             _leaveRequestRepo = leaveRequestRepo;
             _leaveTypeRepo = leaveTypeRepo;
+            _leaveAllocationRepo = leaveAllocationRepo;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -40,24 +43,23 @@ namespace leave_management.Controllers
         public ActionResult Index()
         {
             ICollection<LeaveRequest> leaveRequests = _leaveRequestRepo.FindAll();
-            
+
             List<LeaveRequestViewModel> leaveRequestModel = _mapper
-            .Map<List<LeaveRequestViewModel>>(leaveRequests);
+                .Map<List<LeaveRequestViewModel>>(leaveRequests);
 
             AdminLeaveRequestViewViewModel model =
             new AdminLeaveRequestViewViewModel
             {
                 ApprovedRequests = leaveRequestModel
-                .Count(q => q.Approved == true),
+                    .Count(q => q.Approved == true),
 
                 PendingRequests = leaveRequestModel
-                .Count(q => q.Approved == null),
+                    .Count(q => q.Approved == null),
 
                 RejectedRequests = leaveRequestModel
-                .Count(q => q.Approved == false),
+                    .Count(q => q.Approved == false),
 
                 TotalRequests = leaveRequestModel.Count,
-
                 LeaveRequests = leaveRequestModel
             };
 
@@ -76,31 +78,96 @@ namespace leave_management.Controllers
             ICollection<LeaveType> leaveTypes = _leaveTypeRepo.FindAll();
 
             IEnumerable<SelectListItem> leaveTypeItems = leaveTypes
-            .Select(q => new SelectListItem {
-                Text = q.Name,
-                Value = q.Id.ToString() 
-            });
+                .Select(q => new SelectListItem
+                {
+                    Text = q.Name,
+                    Value = q.Id.ToString()
+                });
 
             CreateLeaveRequestViewModel model = new CreateLeaveRequestViewModel
             {
                 LeaveTypes = leaveTypeItems
             };
-            
+
             return View(model);
         }
 
         // POST: LeaveRequestController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateLeaveRequestViewModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                DateTime startDate = Convert.ToDateTime(model.StartDate);
+                DateTime endDate = Convert.ToDateTime(model.StartDate);
+
+                ICollection<LeaveType> leaveTypes = _leaveTypeRepo.FindAll();
+
+                IEnumerable<SelectListItem> leaveTypeItems = leaveTypes
+                    .Select(q => new SelectListItem
+                    {
+                        Text = q.Name,
+                        Value = q.Id.ToString()
+                    });
+
+                model.LeaveTypes = leaveTypeItems;
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                if (DateTime.Compare(startDate, endDate) > 1)
+                {
+                    ModelState.AddModelError("", "The start date may not be futher"
+                    + " in the future than the end date.");
+
+                    return View(model);
+                }
+
+                Employee employee = _userManager.GetUserAsync(User).Result;
+
+                LeaveAllocation allocation = _leaveAllocationRepo
+                    .GetLeaveAllocationsByEmployeeAndType(employee.Id, model.LeaveTypeId);
+
+                int daysRequested = (int)(endDate.Date - startDate).TotalDays;
+
+                if (daysRequested > allocation.NumberOfDays)
+                {
+                    ModelState.AddModelError("", "You do not have sufficient days for this request.");
+
+                    return View(model);
+                }
+
+                LeaveRequestViewModel leaveRequestModel = new LeaveRequestViewModel
+                {
+                    RequestingEmployeeId = employee.Id,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Approved = null,
+                    DateRequested = DateTime.Now,
+                    DateActioned = DateTime.Now,
+                    LeaveTypeId = model.LeaveTypeId
+                };
+
+                LeaveRequest leaveRequest = _mapper.Map<LeaveRequest>(leaveRequestModel);
+                bool isSuccess = _leaveRequestRepo.Create(leaveRequest);
+
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Something went wrong with submitting your record.");
+
+                    return View(model);
+                }
+
+                return RedirectToAction(nameof(Index), "Home");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
             }
         }
 

@@ -51,13 +51,13 @@ namespace leave_management.Repository
         /// Returns the leave type record/row from the LeaveTypes table that
         /// corresponds with the given unique identifier.
         /// </summary>
-        public LeaveType FindById(int Id)
+        public LeaveType FindById(int id)
         {
-            LeaveType leaveType = _db.LeaveTypes.Find(Id);
+            LeaveType leaveType = _db.LeaveTypes.Find(id);
             return leaveType;
         }
 
-        public ICollection<LeaveType> GetEmployeesByLeaveType(int Id)
+        public ICollection<LeaveType> GetEmployeesByLeaveType(int id)
         {
             throw new NotImplementedException();
         }
@@ -66,10 +66,10 @@ namespace leave_management.Repository
         /// Returns true if the database contains a record corresponding with
         /// the id input. Returns false otherwise.
         /// </summary>
-        public bool isExists(int Id)
+        public bool isExists(int id)
         {
             bool exists = _db.LeaveTypes.Any(
-                q => q.Id == Id
+                q => q.Id == id
             );
             return exists;
         }
