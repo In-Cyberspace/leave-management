@@ -69,7 +69,10 @@ namespace leave_management.Controllers
         // GET: LeaveRequestController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            LeaveRequest leaveRequest = _leaveRequestRepo.FindById(id);
+            LeaveRequestViewModel model = _mapper.Map<LeaveRequestViewModel>(leaveRequest);
+
+            return View(model);
         }
 
         // GET: LeaveRequestController/Create

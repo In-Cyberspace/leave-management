@@ -19,12 +19,13 @@ namespace leave_management
                 // Create "admin" user if it does not exist.
                 Employee user = new Employee
                 {
-                    UserName = "admin",
+                    UserName = "admin@localhost.com",
                     Email = "admin@localhost.com"
                 };
-                
+
                 // Assign the "Administrator" role to the newly created "admin" user.
                 IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd").Result;
+
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, "Administrator").Wait();
@@ -40,6 +41,7 @@ namespace leave_management
                 {
                     Name = "Administrator"
                 };
+
                 roleManager.CreateAsync(role).Wait();
                 // IdentityResult result = roleManager.CreateAsync(role).Result;
             }
@@ -50,6 +52,7 @@ namespace leave_management
                 {
                     Name = "Employee"
                 };
+
                 roleManager.CreateAsync(role).Wait();
                 // IdentityResult result = roleManager.CreateAsync(role).Result;
             }
