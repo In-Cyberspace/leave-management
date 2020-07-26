@@ -20,7 +20,9 @@ namespace leave_management
                 Employee user = new Employee
                 {
                     UserName = "admin@localhost.com",
-                    Email = "admin@localhost.com"
+                    Email = "admin@localhost.com",
+                    FirstName = "Admin",
+                    LastName = "User"
                 };
 
                 // Assign the "Administrator" role to the newly created "admin" user.

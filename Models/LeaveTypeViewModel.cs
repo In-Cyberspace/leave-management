@@ -26,13 +26,13 @@ namespace leave_management.Models
         /// </summary>
         [Required]
         [Display(Name = "Default Number of Days")]
-        [Range(1,25, ErrorMessage = "Please enter a valid number.")]
+        [Range(1, 50, ErrorMessage = "Please enter a valid number.")]
         public int DefaultDays { get; set; }
 
         /// <summary>
         /// Represents the time the leave was created. This field is nullable. 
         ///</summary>
-        [Display(Name="Date Created")]
+        [Display(Name = "Date Created")]
         public DateTime? DateCreated { get; set; }
     }
 }
