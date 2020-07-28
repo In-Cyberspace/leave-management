@@ -63,6 +63,32 @@ namespace leave_management.Controllers
             return View(model);
         }
 
+        public ActionResult MyLeave()
+        {
+            Employee employee = _userManager.GetUserAsync(User).Result;
+            string employeeId = employee.Id;
+
+            ICollection<LeaveAllocation> employeeAllocations = _leaveAllocationRepo
+                .GetLeaveAllocationsByEmployee(employeeId);
+
+            ICollection<LeaveRequest> employeeRequests = _leaveRequestRepo
+                .GetLeaveRequestsByEmployee(employeeId);
+
+            List<LeaveAllocationViewModel> employeeAllocationsModel = _mapper
+                .Map<List<LeaveAllocationViewModel>>(employeeAllocations);
+
+            List<LeaveRequestViewModel> employeeRequestsModel = _mapper
+                .Map<List<LeaveRequestViewModel>>(employeeRequests);
+
+            EmployeeLeaveRequestViewViewModel model = new EmployeeLeaveRequestViewViewModel
+            {
+                LeaveAllocations = employeeAllocationsModel,
+                LeaveRequests = employeeRequestsModel
+            };
+
+            return View(model);
+        }
+
         // GET: LeaveRequestController/Details/5
         public ActionResult Details(int id)
         {
@@ -78,7 +104,6 @@ namespace leave_management.Controllers
             {
                 Employee user = _userManager.GetUserAsync(User).Result;
                 LeaveRequest leaveRequest = _leaveRequestRepo.FindById(id);
-
                 string employeeid = leaveRequest.RequestingEmployeeId;
                 int leaveTypeId = leaveRequest.LeaveTypeId;
 

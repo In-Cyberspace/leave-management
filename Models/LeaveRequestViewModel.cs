@@ -143,4 +143,18 @@ namespace leave_management.Models
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
     }
+
+    public class EmployeeLeaveRequestViewViewModel
+    {
+        /// <summary>
+        /// Gets or sets a list of an employee's leave allocations.
+        /// </summary>
+
+        public List<LeaveAllocationViewModel> LeaveAllocations { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of an employee's leave requests.
+        /// </summary>
+        public List<LeaveRequestViewModel> LeaveRequests { get; set; }
+    }
 }

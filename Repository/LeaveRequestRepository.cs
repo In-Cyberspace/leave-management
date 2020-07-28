@@ -26,6 +26,7 @@ namespace leave_management.Repository
         public bool Create(LeaveRequest entity)
         {
             _db.LeaveRequests.Add(entity);
+
             return Save();
         }
 
@@ -36,6 +37,7 @@ namespace leave_management.Repository
         public bool Delete(LeaveRequest entity)
         {
             _db.LeaveRequests.Remove(entity);
+
             return Save();
         }
 
@@ -45,10 +47,10 @@ namespace leave_management.Repository
         public ICollection<LeaveRequest> FindAll()
         {
             List<LeaveRequest> leaveRequests = _db.LeaveRequests
-            .Include(q => q.RequestingEmployee)
-            .Include(q => q.ApprovedBy)
-            .Include(q => q.LeaveType)
-            .ToList();
+                .Include(q => q.RequestingEmployee)
+                .Include(q => q.ApprovedBy)
+                .Include(q => q.LeaveType)
+                .ToList();
 
             return leaveRequests;
         }
@@ -60,12 +62,21 @@ namespace leave_management.Repository
         public LeaveRequest FindById(int id)
         {
             LeaveRequest leaveRequest = _db.LeaveRequests
-            .Include(q => q.RequestingEmployee)
-            .Include(q => q.ApprovedBy)
-            .Include(q => q.LeaveType)
-            .FirstOrDefault(q => q.Id == id);
+                .Include(q => q.RequestingEmployee)
+                .Include(q => q.ApprovedBy)
+                .Include(q => q.LeaveType)
+                .FirstOrDefault(q => q.Id == id);
 
             return leaveRequest;
+        }
+
+        public ICollection<LeaveRequest> GetLeaveRequestsByEmployee(string employeeId)
+        {
+            ICollection<LeaveRequest> leaveRequests = FindAll()
+                .Where(q => q.RequestingEmployeeId == employeeId)
+                .ToList();
+
+            return leaveRequests;
         }
 
         /// <summary>
@@ -77,6 +88,7 @@ namespace leave_management.Repository
             bool exists = _db.LeaveRequests.Any(
                 q => q.Id == id
             );
+
             return exists;
         }
 
@@ -88,6 +100,7 @@ namespace leave_management.Repository
         public bool Save()
         {
             int changes = _db.SaveChanges();
+
             return changes > 0;
         }
 
@@ -98,6 +111,7 @@ namespace leave_management.Repository
         public bool Update(LeaveRequest entity)
         {
             _db.LeaveRequests.Update(entity);
+
             return Save();
         }
     }
