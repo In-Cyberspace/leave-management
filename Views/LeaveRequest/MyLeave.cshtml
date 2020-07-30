@@ -1,83 +1,92 @@
-@model IEnumerable<leave_management.Models.LeaveRequestViewModel>
+@model EmployeeLeaveRequestViewViewModel
 
 @{
     ViewData["Title"] = "MyLeave";
 }
 
-<h1>MyLeave</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<h1>My Leave Allocations</h1>
+<div class="jumbotron">
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Model.LeaveAllocations)
+            {
+                <li class="list-group-item">
+                    <h6>
+                        @item.LeaveType.Name
+                        <span class="badge badge-secondary">
+                            @item.NumberOfDays
+                        </span>
+                    </h6>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<hr/>
+<h1>My Leave Records</h1>
+<table id="tblData" class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Leave Type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequestingEmployeeId)
+                Start Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                End Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                Date Requested
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.LeaveTypeId)
+                Approval State
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.DateRequested)
+                Cancel Request
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateActioned)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Approved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovedById)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestingEmployeeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveTypeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateRequested)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateActioned)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Approved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedById)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.LeaveRequests) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequested)
+                </td>
+                <td>
+                    @if (item.Approved == true)
+                    {
+                        <span class="badge badge-success">Approved</span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span class="badge badge-danger">Rejected</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">Pending Approval</span>
+                    }
+                </td>
+                <td>
+                    @if (item.StartDate > DateTime.Now || item.Approved == true)
+                    {
+                        <a asp-action="CancelRequest" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to cancel this request?')">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -179,7 +179,6 @@ namespace leave_management.Controllers
             {
                 DateTime startDate = Convert.ToDateTime(model.StartDate);
                 DateTime endDate = Convert.ToDateTime(model.EndDate);
-
                 ICollection<LeaveType> leaveTypes = _leaveTypeRepo.FindAll();
 
                 IEnumerable<SelectListItem> leaveTypeItems = leaveTypes
@@ -239,7 +238,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction("MyLeave");
             }
             catch (Exception e)
             {
