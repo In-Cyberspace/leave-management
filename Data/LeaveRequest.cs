@@ -72,5 +72,15 @@ namespace leave_management.Data
         /// The unique identifier of the person who actioned the leave request.
         /// </summary>
         public string ApprovedById { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cancellation status for the leave request.
+        /// </summary>
+        public bool Cancelled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leave request comments.
+        /// </summary>
+        public string RequestComments { get; set; }
     }
 }

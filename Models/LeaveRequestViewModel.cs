@@ -81,6 +81,18 @@ namespace leave_management.Models
         /// </summary>
         [Display(Name = "Approver Name")]
         public string ApprovedById { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cancellation status for the leave request.
+        /// </summary>
+        public bool Cancelled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leave request comments.
+        /// </summary>
+        [Display(Name = "Employee Comments")]
+        [MaxLength(300)]
+        public string RequestComments { get; set; }
     }
 
     public class AdminLeaveRequestViewViewModel
@@ -142,6 +154,13 @@ namespace leave_management.Models
         /// </summary>
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leave request comments.
+        /// </summary>
+        [Display(Name = "Employee Comments")]
+        [MaxLength(300)]
+        public string RequestComments { get; set; }
     }
 
     public class EmployeeLeaveRequestViewViewModel
