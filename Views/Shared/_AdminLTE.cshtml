@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <!-- From original layout -->
-  <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body class="hold-transition sidebar-mini">
@@ -211,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a asp-controller="LeaveTypes" asp-action="Index" class="nav-link active">
+                    <a asp-controller="LeaveTypes" asp-action="Index" class="nav-link">
                       <i class="fa fa-list nav-icon"></i>
                       <p>Leave Types</p>
                     </a>
@@ -245,9 +245,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    @RenderBody()
+   <!-- Content Wrapper. Contains page content -->
+   <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+          <div class="container-fluid">
+
+          </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+      <!-- Main content -->
+      <div class="content">
+          <div class="container-fluid">
+              @RenderBody()
+              <!-- /.row -->
+          </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
@@ -283,7 +297,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="~/js/adminlte.min.js"></script>
 
 <!-- From original layout -->
-<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="~/js/jquery.dataTables.min.js"></script>
+<script src="~/js/dataTables.bootstrap4.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
