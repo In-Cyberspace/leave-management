@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using leave_management.Data;
 
 namespace leave_management.Contracts
@@ -14,6 +15,6 @@ namespace leave_management.Contracts
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns>A collection of leave requests.</returns>
-        public ICollection<LeaveRequest> GetLeaveRequestsByEmployee(string employeeId);
+        Task<ICollection<LeaveRequest>> GetLeaveRequestsByEmployee(string employeeId);
     }
 }

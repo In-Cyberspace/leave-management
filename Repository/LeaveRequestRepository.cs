@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using leave_management.Contracts;
 using leave_management.Data;
 using Microsoft.EntityFrameworkCore;
@@ -23,34 +24,34 @@ namespace leave_management.Repository
         /// Returns true if the given leave history entity was successfully
         /// created in the database. The method returns false otherwise.
         /// </summary>
-        public bool Create(LeaveRequest entity)
+        public async Task<bool> Create(LeaveRequest entity)
         {
-            _db.LeaveRequests.Add(entity);
+            await _db.LeaveRequests.AddAsync(entity);
 
-            return Save();
+            return await Save();
         }
 
         /// <summary>
         /// Returns true if the given leave history entity was successfully
         /// deleted from the database. The method returns false otherwise.
         /// </summary>
-        public bool Delete(LeaveRequest entity)
+        public async Task<bool> Delete(LeaveRequest entity)
         {
             _db.LeaveRequests.Remove(entity);
 
-            return Save();
+            return await Save();
         }
 
         /// <summary>
         /// Returns all records from the LeaveRequests table in the database.
         /// </summary>
-        public ICollection<LeaveRequest> FindAll()
+        public async Task<ICollection<LeaveRequest>> FindAll()
         {
-            List<LeaveRequest> leaveRequests = _db.LeaveRequests
+            List<LeaveRequest> leaveRequests = await _db.LeaveRequests
                 .Include(q => q.RequestingEmployee)
                 .Include(q => q.ApprovedBy)
                 .Include(q => q.LeaveType)
-                .ToList();
+                .ToListAsync();
 
             return leaveRequests;
         }
@@ -59,35 +60,34 @@ namespace leave_management.Repository
         /// Returns the leave history record/row from the LeaveRequests table
         /// that corresponds with the given unique identifier.
         /// </summary>
-        public LeaveRequest FindById(int id)
+        public async Task<LeaveRequest> FindById(int id)
         {
-            LeaveRequest leaveRequest = _db.LeaveRequests
+            LeaveRequest leaveRequest = await _db.LeaveRequests
                 .Include(q => q.RequestingEmployee)
                 .Include(q => q.ApprovedBy)
                 .Include(q => q.LeaveType)
-                .FirstOrDefault(q => q.Id == id);
+                .FirstOrDefaultAsync(q => q.Id == id);
 
             return leaveRequest;
         }
 
-        public ICollection<LeaveRequest> GetLeaveRequestsByEmployee(string employeeId)
+        public async Task<ICollection<LeaveRequest>> GetLeaveRequestsByEmployee(string employeeId)
         {
-            ICollection<LeaveRequest> leaveRequests = FindAll()
+            ICollection<LeaveRequest> leaveRequests = await FindAll();
+
+            return leaveRequests
                 .Where(q => q.RequestingEmployeeId == employeeId)
                 .ToList();
-
-            return leaveRequests;
         }
 
         /// <summary>
         /// Returns true if the database contains a record corresponding with
         /// the id input. Returns false otherwise.
         /// </summary>
-        public bool isExists(int id)
+        public async Task<bool> isExists(int id)
         {
-            bool exists = _db.LeaveRequests.Any(
-                q => q.Id == id
-            );
+            bool exists = await _db.LeaveRequests
+                .AnyAsync(q => q.Id == id);
 
             return exists;
         }
@@ -97,9 +97,9 @@ namespace leave_management.Repository
         /// If any changes have been made then it returns true. If no changes
         /// were made then it returns false.
         /// </summary>
-        public bool Save()
+        public async Task<bool> Save()
         {
-            int changes = _db.SaveChanges();
+            int changes = await _db.SaveChangesAsync();
 
             return changes > 0;
         }
@@ -108,11 +108,11 @@ namespace leave_management.Repository
         /// Returns true if the leave history database record record was
         /// successfully updated. The method returns false otherwise.
         /// </summary>
-        public bool Update(LeaveRequest entity)
+        public async Task<bool> Update(LeaveRequest entity)
         {
             _db.LeaveRequests.Update(entity);
 
-            return Save();
+            return await Save();
         }
     }
 }

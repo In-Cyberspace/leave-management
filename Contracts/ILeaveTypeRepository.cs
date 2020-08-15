@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using leave_management.Data;
 
 namespace leave_management.Contracts
@@ -13,6 +14,6 @@ namespace leave_management.Contracts
         /// Returns a collection of all employees associated with the type of
         /// leave corresponding to the Id input.
         /// </summary>
-        ICollection<LeaveType> GetEmployeesByLeaveType(int Id);
+        Task<ICollection<LeaveType>> GetEmployeesByLeaveType(int id);
     }
 }
